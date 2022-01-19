@@ -18,11 +18,23 @@ adj_close1=adj_close('AMZN')
 
 
 #break the data into 30 day intervals\
-def breaker(intervals, data):
+def breaker(interval, data):
     breaker=[]
     for i in range(len(data)):
-        if(i+1)%intervals == 0:
-            breaker.append(data[i-intervals:i+1])
+        if(i+1)% interval == 0:
+            breaker.append(data[(i-interval+1):i+1])
     return breaker
 
-breaker(30, adj_close1)
+
+def topredict(interval, data):
+    topredict=[]
+    for i in range(len(data)):
+        if(i+1)% interval == 0:
+            topredict.append(data[i-interval+1:i-interval+2])
+            #beware the second entry ([1]) is the first to be predicted
+    return topredict
+
+b=breaker(5, adj_close1)
+t=topredict(5, adj_close1)
+print(b[0])
+print(t[0])
